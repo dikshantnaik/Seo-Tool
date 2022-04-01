@@ -22,8 +22,9 @@ AHREFS_PASSWORD = "Adsense007##"
 
 def getDriver():
     print("Getting the driver ready")
-    print(settings.DEBUG)
-    if not settings.DEBUG:
+    # print(settings.DEBUG)
+    DEBUG = True
+    if not DEBUG:
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_experimental_option("detach", True)
         chrome_driver_path = Service(r"D:\viji\Aries\Development\chromedriver.exe")
