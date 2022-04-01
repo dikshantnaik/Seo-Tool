@@ -10,7 +10,7 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from pprint import pprint
-
+import os
 import sheets
 
 
@@ -22,8 +22,9 @@ AHREFS_PASSWORD = "Adsense007##"
 
 def getDriver():
     print("Getting the driver ready")
-    print(settings.DEBUG)
-    if not settings.DEBUG:
+    # print(settings.DEBUG)
+    Debug = True
+    if not Debug:
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_experimental_option("detach", True)
         chrome_driver_path = Service(r"D:\viji\Aries\Development\chromedriver.exe")
