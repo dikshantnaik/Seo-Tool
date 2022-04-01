@@ -3,4 +3,3 @@ TwoCaptcha==0.0.1
 urllib3==1.26.8
 flask==1.1.2
 gunicorn
-pprint
