@@ -251,8 +251,8 @@ def Main():
         
         cleanup()
     except Exception as e:
-        print("Somthing Went Wrong :"+e)
-        return "Somthing Went Wrong :"+e
+        print("Somthing Went Wrong :",str(e))
+        return "Somthing Went Wrong :"+str(e)
 
 
 
