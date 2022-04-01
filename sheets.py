@@ -32,10 +32,10 @@ def input_websites():
     print(len(web_list)," No. of WEbsite")
 
     web_list.remove(web_list[0])
-    if len(web_list[indexx:]) <= 5:
+    if len(web_list[indexx:]) <= 20:
         print(f"Total no of inputs are {len(web_list[indexx:])}")
         return web_list[indexx:]
-    elif len(web_list[indexx:]) > 5:
+    elif len(web_list[indexx:]) > 20:
         print(f"real Total no of inputs are {len(web_list[indexx:])}")
         print(f"Total no of inputs are {len(web_list[indexx:(indexx + 20)])}")
         return web_list[indexx:(indexx + 20)]

@@ -10,6 +10,5 @@ def hello():
 
 @app.route("/execute")
 def execute():
-    urls = sheets.input_websites()
-    views.get_da_pa_ss(urls)
+    return views.Main()
     return "EXECUTED"
