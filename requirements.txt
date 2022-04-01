@@ -4,3 +4,10 @@ urllib3==1.26.8
 flask
 gunicorn
 jinja2
+google-api-core==2.6.1
+google-api-python-client==2.39.0
+google-auth==2.6.0
+google-auth-httplib2==0.1.0
+google-auth-oauthlib==0.5.0
+googleapis-common-protos==1.55.0
+gspread==5.2.0
