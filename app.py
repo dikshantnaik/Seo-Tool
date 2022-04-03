@@ -1,8 +1,10 @@
+from xml.dom.expatbuilder import theDOMImplementation
 from flask import Flask, render_template
 import views
 import sheets
 from threading import Thread
 app = Flask(__name__)
+thread = None
 
 
 @app.route('/')
@@ -12,7 +14,9 @@ def hello():
 @app.route("/execute")
 def execute():
     # return views.Main()
-    thread =Thread(name="main",target=views.Main)
+    global thread
+    main = views.Main()
+    thread =Thread(name="main",target=views.Main.Main)
     if thread.is_alive() == 0:
         thread.start()
     return """
@@ -24,3 +28,13 @@ def execute():
     <h1>
 
     """
+
+@app.route("/checkStatus")
+def checkIsAlive():
+    if thread.isAlive()==True:
+        return "<h1> The Script is Running "
+        # print()
+    elif views.error != "":
+        return "<h1> Some Erorr Occured <h1> <br> <h2>"+views.error+"<h2>"
+    elif thread.is_alive()==False:
+        return "<h1> The Script isn't Running "

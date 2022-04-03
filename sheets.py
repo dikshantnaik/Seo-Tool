@@ -21,7 +21,7 @@ sheet = file.open("DA_Checker")  # open sheet
 sheet = sheet.sheet1  # replace sheet_name with the name that corresponds to yours, e.g, it can be sheet1
 
 
-def input_websites():
+def input_websites()-> list:
     print("Taking the inputs from spreadsheet")
     da_list = sheet.col_values(2)
     da_list.remove(da_list[0])
