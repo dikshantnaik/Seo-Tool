@@ -242,7 +242,7 @@ class Main:
         print(f"DR: {dr_list} UR: {ur_list} Traffic: {ahrefs_traffic_list}")
         return dr_list, ur_list, ahrefs_traffic_list
 
-    def cleanup(driver):
+    def cleanup(self,driver):
         driver.close()
         driver.quit()
         driver = None

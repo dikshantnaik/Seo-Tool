@@ -24,7 +24,7 @@ def execute():
     thread =Thread(name="main",target=main.Main)
     if thread.is_alive() == 0:
         thread.start()
-   
+    return "heh"
 @app.route("/execute2")
 def execute2():
     URL = "http://da-checker-tool2.herokuapp.com/execute"
