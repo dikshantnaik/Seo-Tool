@@ -253,11 +253,11 @@ class Main:
 
     def Main(self):
         try:
-            driver = self.getDriver()
             # urls = ["https://google.xyz","https://facebook.com","https://youtube.com","https://godaddy.com","https://www.geeksforgeeks.org/"]
             # DA_list, SS_list, PA_list = get_da_pa_ss(urls)
             # dr_list, ur_list, ahrefs_traffic_list = get_dr_ur_ahrefs_traffic(urls)
             while sheets.to_repeat():
+                driver = self.getDriver()   
                 urls = sheets.input_websites()
                 
                 for i in range(len(urls)):
@@ -279,11 +279,9 @@ class Main:
                 sheets.updating_sheet(data=data_list)
                 pprint(data_list)
                 print("sheet filled")
-
-            if(sheets.to_repeat()==False):
-                return "done"
+                    
+                self.cleanup(driver)
             
-            self.cleanup(driver)
         except Exception as e:
             global error
             print("Somthing Went Wrong :",str(e))
