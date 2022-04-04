@@ -19,16 +19,11 @@ def execute():
     print("--------------------------------")
     print("        SCRIPT STARTING ")
     print("--------------------------------")
-    views.Main()
-    # thread =Thread(name="main",target=main.Main)
-    # if thread.is_alive() == 0:
-    #     thread.start()
-    return "heh"
-@app.route("/execute2")
-def execute2():
-    URL = "http://da-checker-tool2.herokuapp.com/execute"
-    requests.get(URL)
-    # <meta http-equiv = "refresh" content = "5; url = https://docs.google.com/spreadsheets/d/1zJAhm3UoSxiF4ne1degW6uUuP2pLxw9rYckmF4jho0M/edit#gid=0" />
+
+    thread =Thread(name="main",target=views.Main)
+    if thread.is_alive() == 0:
+        thread.start()
+     # <meta http-equiv = "refresh" content = "5; url = https://docs.google.com/spreadsheets/d/1zJAhm3UoSxiF4ne1degW6uUuP2pLxw9rYckmF4jho0M/edit#gid=0" />
     return """
     <h1>Execution Started ...<br>
     Please don't Relode or Close this Page <br> 
@@ -37,6 +32,11 @@ def execute2():
     <h1>
 
     """
+@app.route("/execute2")
+def execute2():
+    URL = "http://da-checker-tool2.herokuapp.com/execute"
+    requests.get(URL)
+   
 @app.route("/checkStatus")
 def checkIsAlive():
     try:
