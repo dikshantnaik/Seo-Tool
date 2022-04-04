@@ -3,6 +3,7 @@ from flask import Flask, render_template
 import views
 import sheets
 from threading import Thread
+import requests
 app = Flask(__name__)
 thread = None
 
@@ -19,6 +20,11 @@ def execute():
     thread =Thread(name="main",target=main.Main)
     if thread.is_alive() == 0:
         thread.start()
+   
+@app.route("execute2")
+def execute2(request):
+    URL = "http://da-checker-tool2.herokuapp.com/execute"
+    requests.get(URL)
     return """
     <meta http-equiv = "refresh" content = "5; url = https://docs.google.com/spreadsheets/d/1zJAhm3UoSxiF4ne1degW6uUuP2pLxw9rYckmF4jho0M/edit#gid=0" />
     <h1>Execution Started ...<br>
@@ -28,7 +34,6 @@ def execute():
     <h1>
 
     """
-
 @app.route("/checkStatus")
 def checkIsAlive():
     try:
