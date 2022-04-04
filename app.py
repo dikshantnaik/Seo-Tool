@@ -16,7 +16,7 @@ def execute():
     # return views.Main()
     global thread
     main = views.Main()
-    thread =Thread(name="main",target=main)
+    thread =Thread(name="main",target=main.Main)
     if thread.is_alive() == 0:
         thread.start()
     return """
@@ -31,12 +31,16 @@ def execute():
 
 @app.route("/checkStatus")
 def checkIsAlive():
-    if thread.isAlive()==True:
-        return "<h1> The Script is Running "
-        # print()
-    elif views.error != "":
-        return "<h1> Some Erorr Occured <h1> <br> <h2>"+views.error+"<h2>"
-    elif thread==None:
-        return "<h1> The Script isn't Running "
-    else:
-        return "Script isn't Running"
+    try:
+        if thread.isAlive()==True:
+            return "<h1> The Script is Running "
+            # print()
+        elif views.error != "":
+            return "<h1> Some Erorr Occured <h1> <br> <h2>"+views.error+"<h2>"
+        elif thread==None:
+            return "<h1> The Script isn't Running "
+        else:
+            return "Script isn't Running"
+    except AttributeError:
+        return "<h1> Script Isn't Running"
+    
