@@ -19,8 +19,7 @@ def execute():
     print("--------------------------------")
     print("        SCRIPT STARTING ")
     print("--------------------------------")
-    main_obj = views.Main
-    main_obj.Main()
+    views.Main()
     # thread =Thread(name="main",target=main.Main)
     # if thread.is_alive() == 0:
     #     thread.start()
