@@ -283,7 +283,7 @@ class Main:
             if(sheets.to_repeat()==False):
                 return "done"
             
-            self.cleanup()
+            self.cleanup(driver)
         except Exception as e:
             global error
             print("Somthing Went Wrong :",str(e))
