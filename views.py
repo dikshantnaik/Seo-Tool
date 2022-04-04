@@ -23,44 +23,44 @@ AHREFS_PASSWORD = "Adsense007##"
 error = ""
 
 class Main:
-    def getDriver(self):
-        print("Getting the driver ready")
-        # print(settings.DEBUG)
-        DEBUG = True
-        if not DEBUG:
-            chrome_options = webdriver.ChromeOptions()
-            chrome_options.add_experimental_option("detach", True)
-            chrome_driver_path = Service(r"D:\viji\Aries\Development\chromedriver.exe")
+    # def getDriver(self):
+    #     print("Getting the driver ready")
+    #     # print(settings.DEBUG)
+    #     DEBUG = True
+    #     if not DEBUG:
+    #         chrome_options = webdriver.ChromeOptions()
+    #         chrome_options.add_experimental_option("detach", True)
+    #         chrome_driver_path = Service(r"D:\viji\Aries\Development\chromedriver.exe")
 
-            driver = webdriver.Chrome(service=chrome_driver_path, options=chrome_options)
-            driver.maximize_window()
-        else:
-            chromeOptions = webdriver.ChromeOptions()
-            chromeOptions.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-            chromeOptions.add_argument("--headless")
-            chromeOptions.add_argument("--no-sandbox")
-            chromeOptions.add_argument("--disable-dev-sh-usage")
-            chromeOptions.add_argument('--disable-dev-shm-usage')
-            chrome_driver_path = Service(os.environ.get("CHROMEDRIVER_PATH"))
+    #         driver = webdriver.Chrome(service=chrome_driver_path, options=chrome_options)
+    #         driver.maximize_window()
+    #     else:
+    #         chromeOptions = webdriver.ChromeOptions()
+    #         chromeOptions.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    #         chromeOptions.add_argument("--headless")
+    #         chromeOptions.add_argument("--no-sandbox")
+    #         chromeOptions.add_argument("--disable-dev-sh-usage")
+    #         chromeOptions.add_argument('--disable-dev-shm-usage')
+    #         chrome_driver_path = Service(os.environ.get("CHROMEDRIVER_PATH"))
 
-            driver = webdriver.Chrome(service=chrome_driver_path, options=chromeOptions)
-            driver.maximize_window()
-        print("Driver is ready")
-        return driver
+    #         driver = webdriver.Chrome(service=chrome_driver_path, options=chromeOptions)
+    #         driver.maximize_window()
+    #     print("Driver is ready")
+    #     return driver
 
     # For Local Testing
-    # def getDriver():
+    def getDriver(self):
 
-    #     options = Options()
-    #     options.binary_location = "/opt/google/chrome/google-chrome"    #chrome binary location specified here
+        options = Options()
+        options.binary_location = "/opt/google/chrome/google-chrome"    #chrome binary location specified here
 
-    #     options.add_argument('--no-sandbox')
-    #     options.add_argument("--start-maximized") #open Browser in maximized mode
-    #     options.add_argument("--no-sandbox") #bypass OS security model
-    #     options.add_argument("--disable-dev-shm-usage") #overcome limited resource problems
-    #     options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    #     driver = webdriver.Chrome("/bin/chromedriver",options=options)
-    #     return driver
+        options.add_argument('--no-sandbox')
+        options.add_argument("--start-maximized") #open Browser in maximized mode
+        options.add_argument("--no-sandbox") #bypass OS security model
+        options.add_argument("--disable-dev-shm-usage") #overcome limited resource problems
+        options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        driver = webdriver.Chrome("/bin/chromedriver",options=options)
+        return driver
 
     def get_da_pa_ss(self,driver,urls):
         # driver = getDriver()
@@ -283,7 +283,7 @@ class Main:
             if(sheets.to_repeat()==False):
                 return "done"
             
-            self.cleanup()
+            self.cleanup(driver)
         except Exception as e:
             global error
             print("Somthing Went Wrong :",str(e))
