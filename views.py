@@ -265,7 +265,7 @@ class Main:
                         urls[i] = "http://"+ urls[i]
             
                 # urls = urls[:4]
-                # print(urls)
+                print(urls)
                 DA_list, SS_list, PA_list = self.get_da_pa_ss(driver,urls)  # DA_list, SS_list, Alexa_list = get_values(driver, urls)
                 dr_list, ur_list, ahrefs_traffic_list = self.get_dr_ur_ahrefs_traffic(driver,urls)
                 alexa_list =self.get_alexa_rank(driver,urls)
