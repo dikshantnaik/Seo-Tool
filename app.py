@@ -26,7 +26,7 @@ def execute():
         thread.start()
    
 @app.route("/execute2")
-def execute2(request):
+def execute2():
     URL = "http://da-checker-tool2.herokuapp.com/execute"
     requests.get(URL)
     return """
