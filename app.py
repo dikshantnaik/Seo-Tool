@@ -16,11 +16,11 @@ def hello():
 def execute():
     # return views.Main()
     global thread
-    main = views.Main()
     print("--------------------------------")
     print("        SCRIPT STARTING ")
     print("--------------------------------")
-    views.Main.Main()
+    main_obj = views.Main
+    main_obj.Main()
     # thread =Thread(name="main",target=main.Main)
     # if thread.is_alive() == 0:
     #     thread.start()
