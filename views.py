@@ -23,7 +23,7 @@ AHREFS_PASSWORD = "Adsense007##"
 error = ""
 
 class Main:
-    def getDriver():
+    def getDriver(self):
         print("Getting the driver ready")
         # print(settings.DEBUG)
         DEBUG = True
@@ -62,7 +62,7 @@ class Main:
     #     driver = webdriver.Chrome("/bin/chromedriver",options=options)
     #     return driver
 
-    def get_da_pa_ss(driver,urls):
+    def get_da_pa_ss(self,driver,urls):
         # driver = getDriver()
         print("Finding DA PA and SS")
         driver.get("https://www.dapachecker.org/spam-score-checker")
@@ -110,7 +110,7 @@ class Main:
         return DA_list, SS_list, PA_list
 
 
-    def get_alexa_rank(driver,urls):
+    def get_alexa_rank(self,driver,urls):
         # driver = getDriver()
         print("Getting alexa rank")
         # alexa_list = []
@@ -146,7 +146,7 @@ class Main:
 
         return alexa_list
 
-    def ahrefs_login(driver):
+    def ahrefs_login(self,driver):
         try:
             email_field = driver.find_element(By.XPATH,
                                             '//*[@id="root"]/div/div/div/div[1]/div/div/div/div/form/div/div[1]/input')
@@ -161,7 +161,7 @@ class Main:
             return e
 
 
-    def get_ahref_values(driver):
+    def get_ahref_values(self,driver):
         ur,dr,traffic = "","",""
         try:
             ur = WebDriverWait(driver, 15).until(EC.presence_of_element_located(("css selector", "div#UrlRatingContainer span")))
