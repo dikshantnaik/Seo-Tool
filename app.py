@@ -17,11 +17,15 @@ def execute():
     # return views.Main()
     global thread
     main = views.Main()
+    print("--------------------------------")
+    print("        SCRIPT STARTING ")
+    print("--------------------------------")
+
     thread =Thread(name="main",target=main.Main)
     if thread.is_alive() == 0:
         thread.start()
    
-@app.route("execute2")
+@app.route("/execute2")
 def execute2(request):
     URL = "http://da-checker-tool2.herokuapp.com/execute"
     requests.get(URL)
