@@ -271,9 +271,9 @@ def Main():
 
             dr_list, ur_list, ahrefs_traffic_list = [],[],[]
             for i in range(len(SS_list)):
-                dr_list[i] = "Paused"
-                ur_list[i] = "Paused"
-                ahrefs_traffic_list[i] = "Paused"
+                dr_list.append("Paused")
+                ur_list.append("Paused")
+                ahrefs_traffic_list.append("Paused")
             alexa_list =get_alexa_rank(driver,urls)
             print(alexa_list)
             data_list = []
