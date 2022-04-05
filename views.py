@@ -267,7 +267,13 @@ def Main():
             urls = urls[:5]
             print(urls)
             DA_list, SS_list, PA_list = get_da_pa_ss(driver,urls)  # DA_list, SS_list, Alexa_list = get_values(driver, urls)
-            dr_list, ur_list, ahrefs_traffic_list = get_dr_ur_ahrefs_traffic(driver,urls)
+            # dr_list, ur_list, ahrefs_traffic_list = get_dr_ur_ahrefs_traffic(driver,urls)
+
+            dr_list, ur_list, ahrefs_traffic_list = [],[],[]
+            for i in range(len(SS_list)):
+                dr_list[i] = "Paused"
+                ur_list[i] = "Paused"
+                ahrefs_traffic_list[i] = "Paused"
             alexa_list =get_alexa_rank(driver,urls)
             print(alexa_list)
             data_list = []
