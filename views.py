@@ -260,10 +260,7 @@ def Main():
             driver = getDriver()   
             urls = sheets.input_websites()
             
-            for i in range(len(urls)):
-                if "http" not in urls[i]:
-                    urls[i] = "http://"+ urls[i]
-        
+           
             urls = urls[:5]
             print(urls)
             DA_list, SS_list, PA_list = get_da_pa_ss(driver,urls)  # DA_list, SS_list, Alexa_list = get_values(driver, urls)

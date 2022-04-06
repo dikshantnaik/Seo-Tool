@@ -32,13 +32,19 @@ def input_websites()-> list:
     print(len(web_list)," No. of WEbsite")
 
     web_list.remove(web_list[0])
+    
     if len(web_list[indexx:]) <= 20:
         print(f"Total no of inputs are {len(web_list[indexx:])}")
-        return web_list[indexx:]
+        web_list=  web_list[indexx:]
     elif len(web_list[indexx:]) > 20:
         print(f"real Total no of inputs are {len(web_list[indexx:])}")
         print(f"Total no of inputs are {len(web_list[indexx:(indexx + 20)])}")
-        return web_list[indexx:(indexx + 20)]
+        web_list =  web_list[indexx:(indexx + 20)]
+    for i in range(len(web_list)):
+            if "http" not in web_list[i]:
+                web_list[i] = "http://"+ web_list[i]
+        
+    return web_list
 
 
 def to_repeat():
