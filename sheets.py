@@ -49,7 +49,7 @@ def input_websites(NO_OF_WEBSITE=7)-> list:
     pprint(web_list)
     return web_list
 
-def get_website_for_ahref(NO_OF_WEBSITE_PER_SCRIPT = 10):
+def get_website_for_ahref(NO_OF_WEBSITE_PER_SCRIPT = 200):
     sheet = file.open("DA_Checker")  # open sheet
     sheet = sheet.sheet1  # replace sheet_name with the name that corresponds to yours, e.g, it can be sheet1
 
@@ -98,11 +98,12 @@ def updating_sheet(data,forAhref=False):
         ur_list = sheet.col_values(5)
         ur_list.remove(ur_list[0])
         n1 = len(ur_list) + 2
-        n2 = n1 + len(get_website_for_ahref()) - 1  
-        print(f"B{n1}:H{n2} is to be filled")
+        
+        n2 = n1 +  len(get_website_for_ahref())- 1  
+        print(f"E{n1}:G{n2} is to be filled")
         sheet.update(f"E{n1}:G{n2}", data)
 
-# updating_sheet([[1,2,3],[1,2,3],[1,2,3]],forAhref=True)
+# updating_sheet([[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3],[1,2,3]],forAhref=True)
 # print(sheet.get_all_records())  # gets all the values of the worksheet in the format of dictionary
 # print(sheet.col_values(1))
 # print(input_websites())
