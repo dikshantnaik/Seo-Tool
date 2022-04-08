@@ -1,9 +1,2 @@
-import sheets
-
-urls = sheets.input_websites()
-
-print(urls)
-
-with open("data.txt","w") as f:
-    for url in urls:
-        f.write(url+"\n")
+urls =[1,2,3,4,5,6]
+print(urls[:23])

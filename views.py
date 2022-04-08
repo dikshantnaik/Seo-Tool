@@ -1,3 +1,4 @@
+import shelve
 import time
 from urllib.parse import urlparse
 # from matplotlib.pyplot import text
@@ -10,7 +11,6 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from pprint import pprint
-import os
 
 import sheets
 
@@ -18,49 +18,49 @@ import sheets
 
 API_KEY = "50e99d1ef912ed612ec08d1612372c8e"
 AHREFS_EMAIL = "rahulthepcl@gmail.com"
-AHREFS_PASSWORD = "Adsense007##"
+AHREFS_PASSWORD = "Ganesh007#%"
 
 error = ""
 
 
-def getDriver( ):
-    print("Getting the driver ready")
-    # print(settings.DEBUG)
-    DEBUG = True
-    if not DEBUG:
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_experimental_option("detach", True)
-        chrome_driver_path = Service(r"D:\viji\Aries\Development\chromedriver.exe")
+# def getDriver( ):
+#     print("Getting the driver ready")
+#     # print(settings.DEBUG)
+#     DEBUG = True
+#     if not DEBUG:
+#         chrome_options = webdriver.ChromeOptions()
+#         chrome_options.add_experimental_option("detach", True)
+#         chrome_driver_path = Service(r"D:\viji\Aries\Development\chromedriver.exe")
 
-        driver = webdriver.Chrome(service=chrome_driver_path, options=chrome_options)
-        driver.maximize_window()
-    else:
-        chromeOptions = webdriver.ChromeOptions()
-        chromeOptions.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-        chromeOptions.add_argument("--headless")
-        chromeOptions.add_argument("--no-sandbox")
-        chromeOptions.add_argument("--disable-dev-sh-usage")
-        chromeOptions.add_argument('--disable-dev-shm-usage')
-        chrome_driver_path = Service(os.environ.get("CHROMEDRIVER_PATH"))
+#         driver = webdriver.Chrome(service=chrome_driver_path, options=chrome_options)
+#         driver.maximize_window()
+#     else:
+#         chromeOptions = webdriver.ChromeOptions()
+#         chromeOptions.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+#         chromeOptions.add_argument("--headless")
+#         chromeOptions.add_argument("--no-sandbox")
+#         chromeOptions.add_argument("--disable-dev-sh-usage")
+#         chromeOptions.add_argument('--disable-dev-shm-usage')
+#         chrome_driver_path = Service(os.environ.get("CHROMEDRIVER_PATH"))
 
-        driver = webdriver.Chrome(service=chrome_driver_path, options=chromeOptions)
-        driver.maximize_window()
-    print("Driver is ready")
-    return driver
+#         driver = webdriver.Chrome(service=chrome_driver_path, options=chromeOptions)
+#         driver.maximize_window()
+#     print("Driver is ready")
+#     return driver
 
 # For Local Testing
-# def getDriver():
+def getDriver():
 
-#     options = Options()
-#     options.binary_location = "/opt/google/chrome/google-chrome"    #chrome binary location specified here
+    options = Options()
+    options.binary_location = "/opt/google/chrome/google-chrome"    #chrome binary location specified here
 
-#     options.add_argument('--no-sandbox')
-#     options.add_argument("--start-maximized") #open Browser in maximized mode
-#     options.add_argument("--no-sandbox") #bypass OS security model
-#     options.add_argument("--disable-dev-shm-usage") #overcome limited resource problems
-#     options.add_experimental_option("excludeSwitches", ["enable-automation"])
-#     driver = webdriver.Chrome("/bin/chromedriver",options=options)
-#     return driver
+    options.add_argument('--no-sandbox')
+    options.add_argument("--start-maximized") #open Browser in maximized mode
+    options.add_argument("--no-sandbox") #bypass OS security model
+    options.add_argument("--disable-dev-shm-usage") #overcome limited resource problems
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    driver = webdriver.Chrome("/bin/chromedriver",options=options)
+    return driver
 
 def get_da_pa_ss(driver,urls):
     # driver = getDriver()
@@ -148,6 +148,7 @@ def get_alexa_rank(driver,urls):
 
 def ahrefs_login(driver):
     try:
+        driver.get("https://app.ahrefs.com/user/login")
         email_field = driver.find_element(By.XPATH,
                                         '//*[@id="root"]/div/div/div/div[1]/div/div/div/div/form/div/div[1]/input')
         password_field = driver.find_element(By.XPATH,
@@ -161,87 +162,117 @@ def ahrefs_login(driver):
         return e
 
 
-def get_ahref_values(driver):
-    ur,dr,traffic = "","",""
-    try:
-        ur = WebDriverWait(driver, 15).until(EC.presence_of_element_located(("css selector", "div#UrlRatingContainer span")))
-        ur = ur.text
-    except TimeoutException:
-        ur = "No data"
+# def get_ahref_values(driver):
+#     ur,dr,traffic = "","",""
+#     try:
+#         ur = WebDriverWait(driver, 15).until(EC.presence_of_element_located(("css selector", "div#UrlRatingContainer span")))
+#         ur = ur.text
+#     except TimeoutException:
+#         ur = "No data"
     
-    try:
-        dr = WebDriverWait(driver, 15).until(EC.presence_of_element_located(("css selector", "div#DomainRatingContainer span")))
-        dr = dr.text
-    except TimeoutException:
-        dr = "No data"
+#     try:
+#         dr = WebDriverWait(driver, 15).until(EC.presence_of_element_located(("css selector", "div#DomainRatingContainer span")))
+#         dr = dr.text
+#     except TimeoutException:
+#         dr = "No data"
     
-    try:
-        traffic = WebDriverWait(driver, 15).until(EC.presence_of_element_located(("css selector", "h5#numberOfOrganicTraffic span")))
-        traffic  = traffic.text
-    except TimeoutException:
-        traffic = "No data"
+#     try:
+#         traffic = WebDriverWait(driver, 15).until(EC.presence_of_element_located(("css selector", "h5#numberOfOrganicTraffic span")))
+#         traffic  = traffic.text
+#     except TimeoutException:
+#         traffic = "No data"
     
-    return ur,dr,traffic
+#     return ur,dr,traffic
 
 
-def get_dr_ur_ahrefs_traffic( driver,urls):
-    # driver = getDriver()
-    n = 0
-    ur_list = []
-    dr_list = []
-    ahrefs_traffic_list = []
-    print("getting ur dr and ahrefs traffic")
-    for url in urls:
-        try:
-            driver.get(f"https://app.ahrefs.com/site-explorer/overview/v2/prefix/live?target={url}")
-            print(urlparse(url).hostname)
-            if n == 0:
-                ahrefs_login(driver)
-                n += 1
-        except TimeoutException:
-            try:
-                ahrefs_login(driver)
-                ur, dr, traffic = get_ahref_values(driver)
-                ur_list.append(ur)
-                dr_list.append(dr)
-                ahrefs_traffic_list.append(traffic)
-            except TimeoutException:
-                driver.get(
-                    f"https://app.ahrefs.com/site-explorer/overview/v2/prefix/live?target={url}")
-                print(urlparse(url).hostname)
-                ur, dr, traffic = get_ahref_values(driver)
-                ur_list.append(ur)
-                dr_list.append(dr)
-                ahrefs_traffic_list.append(traffic)
-            except NoSuchElementException:
-                driver.get(
-                    f"https://app.ahrefs.com/site-explorer/overview/v2/prefix/live?target={url}")
-                print(urlparse(url).hostname)
-                ur, dr, traffic = get_ahref_values(driver)
-                ur_list.append(ur)
-                dr_list.append(dr)
-                ahrefs_traffic_list.append(traffic)
-        except NoSuchElementException:
-            driver.get(f"https://app.ahrefs.com/site-explorer/overview/v2/prefix/live?target={url}")
-            print(urlparse(url).hostname)
-            ur, dr, traffic = get_ahref_values(driver)
-            ur_list.append(ur)
-            dr_list.append(dr)
-            ahrefs_traffic_list.append(traffic)
-        except WebDriverException:
-            driver.get(f"https://app.ahrefs.com/site-explorer/overview/v2/prefix/live?target={url}")
-            ur, dr, traffic = get_ahref_values(driver)
-            ur_list.append(ur)
-            dr_list.append(dr)
-            ahrefs_traffic_list.append(traffic)
-        else:
-            ur, dr, traffic = get_ahref_values(driver)
-            ur_list.append(ur)
-            dr_list.append(dr)
-            ahrefs_traffic_list.append(traffic)
-    print(f"DR: {dr_list} UR: {ur_list} Traffic: {ahrefs_traffic_list}")
-    return dr_list, ur_list, ahrefs_traffic_list
+# def get_dr_ur_ahrefs_traffic( driver,urls):
+#     # driver = getDriver()
+#     n = 0
+#     ur_list = []
+#     dr_list = []
+#     ahrefs_traffic_list = []
+#     print("getting ur dr and ahrefs traffic")
+#     for url in urls:
+#         try:
+#             driver.get(f"https://app.ahrefs.com/site-explorer/overview/v2/prefix/live?target={url}")
+#             print(urlparse(url).hostname)
+#             if n == 0:
+#                 ahrefs_login(driver)
+#                 n += 1
+#         except TimeoutException:
+#             try:
+#                 ahrefs_login(driver)
+#                 ur, dr, traffic = get_ahref_values(driver)
+#                 ur_list.append(ur)
+#                 dr_list.append(dr)
+#                 ahrefs_traffic_list.append(traffic)
+#             except TimeoutException:
+#                 driver.get(
+#                     f"https://app.ahrefs.com/site-explorer/overview/v2/prefix/live?target={url}")
+#                 print(urlparse(url).hostname)
+#                 ur, dr, traffic = get_ahref_values(driver)
+#                 ur_list.append(ur)
+#                 dr_list.append(dr)
+#                 ahrefs_traffic_list.append(traffic)
+#             except NoSuchElementException:
+#                 driver.get(
+#                     f"https://app.ahrefs.com/site-explorer/overview/v2/prefix/live?target={url}")
+#                 print(urlparse(url).hostname)
+#                 ur, dr, traffic = get_ahref_values(driver)
+#                 ur_list.append(ur)
+#                 dr_list.append(dr)
+#                 ahrefs_traffic_list.append(traffic)
+#         except NoSuchElementException:
+#             driver.get(f"https://app.ahrefs.com/site-explorer/overview/v2/prefix/live?target={url}")
+#             print(urlparse(url).hostname)
+#             ur, dr, traffic = get_ahref_values(driver)
+#             ur_list.append(ur)
+#             dr_list.append(dr)
+#             ahrefs_traffic_list.append(traffic)
+#         except WebDriverException:
+#             driver.get(f"https://app.ahrefs.com/site-explorer/overview/v2/prefix/live?target={url}")
+#             ur, dr, traffic = get_ahref_values(driver)
+#             ur_list.append(ur)
+#             dr_list.append(dr)
+#             ahrefs_traffic_list.append(traffic)
+#         else:
+#             ur, dr, traffic = get_ahref_values(driver)
+#             ur_list.append(ur)
+#             dr_list.append(dr)
+#             ahrefs_traffic_list.append(traffic)
+#     print(f"DR: {dr_list} UR: {ur_list} Traffic: {ahrefs_traffic_list}")
+#     return dr_list, ur_list, ahrefs_traffic_list
 
+def get_ahref_ur_dr(driver):
+    ahrefs_login(driver)
+    time.sleep(7)
+    while sheets.to_repeat():
+        urls = sheets.get_website_for_ahref(5)
+        driver.get("https://app.ahrefs.com/batch-analysis")
+        time.sleep(7)
+        text_area = driver.find_element_by_xpath("/html/body/div[1]/div[4]/div[2]/div/div[2]/div/form/fieldset/textarea")
+        for url in urls:
+            text_area.send_keys(url+"\n")
+        analyse_btn = driver.find_element_by_xpath('//*[@id="startAnalysisButton"]')
+        analyse_btn.click()
+        time.sleep(5)
+        num_rows =len(driver.find_elements_by_xpath(r'//*[@id="batch_data_table"]/tbody/tr'))
+        for no_of_row in range(1,num_rows):
+            xpath_str = r'//*[@id="batch_data_table"]/tbody/tr['+str(no_of_row)+']/td'
+            cols =driver.find_elements_by_xpath(xpath_str)
+            UR = cols[5].text
+            DR = cols[6].text
+            AR = cols[7].text
+            if "—" in UR:
+                UR = "No data"
+            if "—" in AR:
+                AR = "No data"
+            if "—" in DR:
+                DR = "No Data"
+            print("UR,AR,DR = "+UR,AR,DR)
+    # pprint(urls)
+    # driver.get("https://app.ahrefs.com/user/login")
+    
 def cleanup( driver):
     driver.close()
     driver.quit()
@@ -252,44 +283,72 @@ def cleanup( driver):
 # print(get_alexa_rank(["https://google.xyz","https://facebook.com","https://youtube.com","https://godaddy.com","https://www.geeksforgeeks.org/"]))
 
 def Main():
-    try:
-        # urls = ["https://google.xyz","https://facebook.com","https://youtube.com","https://godaddy.com","https://www.geeksforgeeks.org/"]
-        # DA_list, SS_list, PA_list = get_da_pa_ss(urls)
-        # dr_list, ur_list, ahrefs_traffic_list = get_dr_ur_ahrefs_traffic(urls)
-        while sheets.to_repeat():
-            driver = getDriver()   
-            urls = sheets.input_websites()
+    import sheets2
+    driver = getDriver() 
+    get_ahref_ur_dr(driver)    
+    time.sleep(50)
+    # UR= 5 Dr= 6 AR = 7
+        
+    # num_rows = len(rows)
+        # //*[@id="batch_data_table"]/tbody/tr[1]/td[7]
+        # //*[@id="batch_data_table"]/tbody/tr[1]/td[8]/a
+        # //*[@id="batch_data_table"]/tbody/tr[2]/td[7]
+    # pprint(values)
+        # values_str = []
+        # if m > 15:
+        #     cleanup(driver)
+        #     main_program()
+        # for value in values:
+            # pprint(value)
+            # if values.index(value) in [25, 51, 77, 103]:
+            #     print(f"{value.text} of index {values.index(value)} is not added")
+            #     pass
+            # else:
+            # values_str.append(value.text)
+    # pprint(values_str)
+        # print(len(values_str))
+        # pprint(values.text)
+    # pprint(values)
+    # get_ahref_ur_dr(driver,sheets2.get_website_for_ahref())
+    # try:
+    #     # urls = ["https://google.xyz","https://facebook.com","https://youtube.com","https://godaddy.com","https://www.geeksforgeeks.org/"]
+    #     # DA_list, SS_list, PA_list = get_da_pa_ss(urls)
+    #     # dr_list, ur_list, ahrefs_traffic_list = get_dr_ur_ahrefs_traffic(urls)
+    #     while sheets.to_repeat():
+    #         driver = getDriver()   
+    #         urls = sheets.input_websites()
             
            
-            urls = urls[:5]
-            print(urls)
-            DA_list, SS_list, PA_list = get_da_pa_ss(driver,urls)  # DA_list, SS_list, Alexa_list = get_values(driver, urls)
-            # dr_list, ur_list, ahrefs_traffic_list = get_dr_ur_ahrefs_traffic(driver,urls)
+    #         urls = urls[:5]
+    #         print(urls)
+    #         DA_list, SS_list, PA_list = get_da_pa_ss(driver,urls)  # DA_list, SS_list, Alexa_list = get_values(driver, urls)
+    #         # dr_list, ur_list, ahrefs_traffic_list = get_dr_ur_ahrefs_traffic(driver,urls)
 
-            dr_list, ur_list, ahrefs_traffic_list = [],[],[]
-            for i in range(len(SS_list)):
-                dr_list.append("Paused")
-                ur_list.append("Paused")
-                ahrefs_traffic_list.append("Paused")
-            alexa_list =get_alexa_rank(driver,urls)
-            print(alexa_list)
-            data_list = []
-            print(f"DA:{len(DA_list)}, SS:{len(SS_list)}, PA:{len(PA_list)}, DR:{len(dr_list)}, UR:{len(ur_list)}, ahrefs traffic:{len(ahrefs_traffic_list)}, Alexa Rank:{len(alexa_list)}")
-            print("creating a datalist")
-            for i in range(0, len(SS_list)):
-                data_list.append([DA_list[i], SS_list[i], PA_list[i], ur_list[i], dr_list[i], ahrefs_traffic_list[i], alexa_list[i]])  # data_list.append([DA_list[i], SS_list[i], Alexa_list[i]])
-            print(data_list)
-            sheets.updating_sheet(data=data_list)
-            pprint(data_list)
-            print("sheet filled")
+    #         dr_list, ur_list, ahrefs_traffic_list = [],[],[]
+    #         for i in range(len(SS_list)):
+    #             dr_list.append("Paused")
+    #             ur_list.append("Paused")
+    #             ahrefs_traffic_list.append("Paused")
+    #         alexa_list =get_alexa_rank(driver,urls)
+    #         print(alexa_list)
+    #         data_list = []
+    #         print(f"DA:{len(DA_list)}, SS:{len(SS_list)}, PA:{len(PA_list)}, DR:{len(dr_list)}, UR:{len(ur_list)}, ahrefs traffic:{len(ahrefs_traffic_list)}, Alexa Rank:{len(alexa_list)}")
+    #         print("creating a datalist")
+    #         for i in range(0, len(SS_list)):
+    #             data_list.append([DA_list[i], SS_list[i], PA_list[i], ur_list[i], dr_list[i], ahrefs_traffic_list[i], alexa_list[i]])  # data_list.append([DA_list[i], SS_list[i], Alexa_list[i]])
+    #         print(data_list)
+    #         sheets.updating_sheet(data=data_list)
+    #         pprint(data_list)
+    #         print("sheet filled")
                 
-            cleanup(driver)
+    #         cleanup(driver)
         
-    except Exception as e:
-        global error
-        print("Somthing Went Wrong :",str(e))
-        error = str(e)
-        return "Somthing Went Wrong :"+str(e)
+    # except Exception as e:
+    #     global error
+    #     print("Somthing Went Wrong :",str(e))
+    #     error = str(e)
+    #     return "Somthing Went Wrong :"+str(e)
 
 
 
+Main()

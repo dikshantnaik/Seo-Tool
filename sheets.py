@@ -1,4 +1,4 @@
-from operator import index
+
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import os
@@ -46,23 +46,56 @@ def input_websites()-> list:
         
     return web_list
 
+def get_website_for_ahref(NO_OF_WEBSITE_PER_SCRIPT = 10):
+    sheet = file.open("DA_Checker")  # open sheet
+    sheet = sheet.sheet1  # replace sheet_name with the name that corresponds to yours, e.g, it can be sheet1
 
-def to_repeat():
-    if len(sheet.col_values(2)) != len(sheet.col_values(1)):
-        return True
+    websit_list = sheet.col_values(1)
+    UR_LIST = sheet.col_values(5)
+
+    # Website list with no data
+    websit_list = websit_list[len(UR_LIST):]
+
+    websit_list = websit_list[:NO_OF_WEBSITE_PER_SCRIPT]
+    for i in range(len(websit_list)):
+        if "http" not in websit_list[i]:
+            websit_list[i] = "http://"+ websit_list[i]
+    
+    return websit_list
+
+
+def to_repeat(isUR=False):
+    if isUR==False:
+        if len(sheet.col_values(2)) != len(sheet.col_values(1)):
+            return True
+        else:
+            return False
     else:
-        return False
+        if len(sheet.col_values(5)) == 0:
+            return False
+        else:
+            return True
 
 
-def updating_sheet(data):
+def updating_sheet(data,forAhref=False):
     print("filling the sheets")
-    da_list = sheet.col_values(2)
-    da_list.remove(da_list[0])
-    n1 = len(da_list) + 2
-    n2 = n1 + len(input_websites()) - 1
-    print(f"B{n1}:H{n2} is to be filled")
-    sheet.update(f"B{n1}:H{n2}", data)
+    if forAhref==False:
+        da_list = sheet.col_values(2)
+        da_list.remove(da_list[0])
+        n1 = len(da_list) + 2
+        n2 = n1 + len(input_websites()) - 1
+        print(f"B{n1}:H{n2} is to be filled")
+        sheet.update(f"B{n1}:H{n2}", data)
+    else:
+        da_list = sheet.col_values(5)
+        da_list.remove(da_list[0])
+        n1 = len(da_list) + 2
+        n2 = n1 + len(input_websites()) - 1
+        print(f"B{n1}:H{n2} is to be filled")
+        sheet.update(f"E{n1}:G{n2}", data)
+
 
 # print(sheet.get_all_records())  # gets all the values of the worksheet in the format of dictionary
 # print(sheet.col_values(1))
 # print(input_websites())
+to_repeat(isUR=True)
