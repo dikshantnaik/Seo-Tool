@@ -21,21 +21,41 @@ def execute():
     print("--------------------------------")
 
     thread =Thread(name="main",target=views.Main)
-    if thread.is_alive() == 0:
+    if thread.is_alive() == False:
         thread.start()
-     # <meta http-equiv = "refresh" content = "5; url = https://docs.google.com/spreadsheets/d/1zJAhm3UoSxiF4ne1degW6uUuP2pLxw9rYckmF4jho0M/edit#gid=0" />
-    return """
-    <h1>Execution Started ...<br>
-    Please don't Relode or Close this Page <br> 
-    It'll take a 3-4 minute to update the Google Sheets if no error Occurs <br><br>
-    <span font-color="red"> Redirection you to Spreadsheet in some Seconds
-    <h1>
+        return """
+        <h1>Execution Started ...<br>
+        Please don't Relode or Close this Page <br> 
+        It'll take a 3-4 minute to update the Google Sheets if no error Occurs <br><br>
+        <span font-color="red"> Redirection you to Spreadsheet in some Seconds
+        <h1>
 
-    """
-@app.route("/execute2")
-def execute2():
-    URL = "http://da-checker-tool2.herokuapp.com/execute"
-    requests.get(URL)
+        """
+    else:
+        return "Script Ruinning"
+
+
+@app.route("/getAhref")
+def getAhref():
+    print("--------------------------------")
+    print("        SCRIPT STARTING[AHREF]  ")
+    print("--------------------------------")
+    thread = Thread(name="ahref",target=views.get_ahref_ur_dr)
+    if thread.is_alive()==False:
+        thread.start()
+        return """
+            <h1>Execution Started ...<br>
+            Please don't Relode or Close this Page <br> 
+            It'll take a 3-4 minute to update the Google Sheets if no error Occurs <br><br>
+            <span font-color="red"> Redirection you to Spreadsheet in some Seconds
+            <h1>
+
+            """
+
+        
+    else:
+        return "Script Ruinning"
+
    
 @app.route("/checkStatus")
 def checkIsAlive():
