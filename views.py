@@ -178,7 +178,7 @@ def get_ahref_ur_dr():
             text_area.send_keys(url+"\n")
         analyse_btn = driver.find_element_by_xpath('//*[@id="startAnalysisButton"]')
         analyse_btn.click()
-        time.sleep(5)
+        time.sleep(20)
         num_rows =len(driver.find_elements_by_xpath(r'//*[@id="batch_data_table"]/tbody/tr'))
         for no_of_row in range(1,num_rows+1):
             xpath_str = r'//*[@id="batch_data_table"]/tbody/tr['+str(no_of_row)+']/td'
