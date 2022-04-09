@@ -93,9 +93,12 @@ def get_da_pa_ss(driver,urls):
                 if values.index(value) in [25, 51, 77, 103]:
                     print(f"{value.text} of index {values.index(value)} is not added")
                     pass
+                elif value==0:
+                    values_str.append("Error")
                 else:
                     values_str.append(value.text)
-
+            if len(values_str)==0:
+                exit()
             print(len(values_str))
             print(len(values))
             DA_list = values_str[3::5]
