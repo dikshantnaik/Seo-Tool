@@ -16,9 +16,8 @@ import sheets
 
 
 
-API_KEY = "50e99d1ef912ed612ec08d1612372c8e"
-AHREFS_EMAIL = "rahulthepcl@gmail.com"
-AHREFS_PASSWORD = "Ganesh007#%"
+AHREFS_EMAIL = "YOUR AHREF EMAIL"
+AHREFS_PASSWORD = "AHREF PASSWORDs"
 
 error = ""
 
